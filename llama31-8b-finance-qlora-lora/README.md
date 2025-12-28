@@ -11,8 +11,7 @@ tags:
 
 # Model Card for Model ID
 
-<!-- Provide a quick summary of what the model is/does. -->
-
+Trained on 644 QA pairs from Arxiv papers on finance, accounting, and economics.
 
 
 ## Model Details
