@@ -1,14 +1,32 @@
-# Python
-__pycache__/
-*.pyc
-.env
 
-# Model artifacts
+# Training artifacts / checkpoints
+**/checkpoint-*/
+**/runs/
+**/wandb/
+*.pt
 *.bin
 *.safetensors
-adapter_model/
-checkpoints/
-runs/
 
-# OS
-.DS_Store
+
+
+
+# ----------------------
+# Secrets
+# ----------------------
+.env
+
+# ----------------------
+# Unsloth cache (compiled kernels, trainers, locks)
+# ----------------------
+unsloth_compiled_cache/
+
+# ----------------------
+# Ignore ONLY the raw synthetic QA (keep the clean one)
+# ----------------------
+arxiv_finance_corpus/synthetic_finance_qa.chatml.jsonl
+
+# ----------------------
+# Python noise
+# ----------------------
+__pycache__/
+.ipynb_checkpoints/
