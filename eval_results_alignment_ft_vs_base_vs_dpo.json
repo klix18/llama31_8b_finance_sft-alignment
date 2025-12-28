@@ -1,0 +1,327 @@
+{
+  "base_model_id": "unsloth/Meta-Llama-3.1-8B-Instruct-bnb-4bit",
+  "adapters": {
+    "qlora": "llama31-8b-finance-qlora-lora",
+    "dpo": "llama31-8b-finance-dpo-lora-kevin"
+  },
+  "gen_config": {
+    "max_new_tokens_answer": 384,
+    "temperature": 0.2,
+    "top_p": 0.9,
+    "seed": 42,
+    "max_seq_len": 4096
+  },
+  "judge": {
+    "model": "gpt-4.1-mini"
+  },
+  "pairings": [
+    [
+      "original",
+      "qlora"
+    ],
+    [
+      "original",
+      "dpo"
+    ],
+    [
+      "qlora",
+      "dpo"
+    ]
+  ],
+  "results": [
+    {
+      "question": "Explain look-ahead bias in backtesting and how to avoid it.",
+      "answers": {
+        "original": "**What is Look-Ahead Bias in Backtesting?**\n\nLook-ahead bias, also known as data snooping or overfitting, is a common issue in backtesting that occurs when a model or strategy is optimized using data that is not available at the time of the investment decision. This means that the model is \"looking ahead\" to future data to make predictions or decisions, rather than relying on the available information at the time.\n\n**Example:**\n\nSuppose you're backtesting a trading strategy that uses a moving average crossover to buy or sell a stock. You use historical data from 2010 to 2020 to optimize the strategy, including the moving average period and the buy/sell signals. However, when you test the strategy on the same data, you're essentially \"looking ahead\" to the future buy/sell signals that were used to optimize the strategy. This is not a realistic representation of how the strategy would perform in real life.\n\n**Consequences of Look-Ahead Bias:**\n\nLook-ahead bias can lead to overly optimistic results, as the model is essentially cheating by using future data to make decisions. This can result in:\n\n1. Overfitting: The model becomes too specialized to the specific data used to optimize it, rather than generalizing to new, unseen data.\n2. Unrealistic expectations: The model's performance may not be replicable in real life, leading to disappointment and frustration.\n3. Poor decision-making: The model's reliance on future data can lead to poor investment decisions, as the model is not making decisions based on available information.\n\n**How to Avoid Look-Ahead Bias:**\n\nTo avoid look-ahead bias, follow these best practices:\n\n1. **Use walk-forward optimization**: Split your data into training and testing sets, and optimize your model on the training set. Then, test the model on the testing set to evaluate its performance.\n2. **Use a",
+        "qlora": "**What is look-ahead bias?**\n\nLook-ahead bias is a common issue in backtesting that occurs when a model uses information available after a trade has been executed to make decisions. This means the model is \"looking ahead\" to future data, which is not possible in real-world trading. Look-ahead bias can lead to overly optimistic results and poor out-of-sample performance.\n\n**Examples of look-ahead bias:**\n\n1. **Using future data to set parameters**: If a model uses future data to determine optimal parameters, such as a moving average length or a threshold, it will not generalize well to new data.\n2. **Including post-trade data in the training set**: If a model is trained on data that includes the outcome of the trade (e.g., a buy signal followed by a price increase), it will not be able to replicate the same performance in real-world trading.\n3. **Using real-time data to make decisions**: If a model uses real-time data to make decisions, it will not be able to replicate the same performance in backtesting, where data is typically available at a slower pace.\n\n**How to avoid look-ahead bias:**\n\n1. **Use only in-sample data**: Train the model on data available up to the point of the trade, and use only in-sample data to make decisions.\n2. **Use walk-forward optimization**: Train the model on a subset of the data, and then test it on a subsequent subset. This process is repeated, with the model being re-trained on the next subset after each test.\n3. **Use a fixed, pre-determined strategy**: Define a strategy based on historical data, and then test it on new data without adjusting the parameters.\n4. **Use a holdout set**: Set aside a portion of the data as a holdout set, and test the model on this set after training.\n5. **Use a rolling window**: Train the",
+        "dpo": "**What is look-ahead bias?**\n\nLook-ahead bias, also known as data snooping or overfitting, occurs when a backtest uses information that is not available at the time the trade is executed. This can include:\n\n1. **Future data**: Using data that is not yet available to make trading decisions.\n2. **Unrealistic assumptions**: Assuming that the model will always perform perfectly or that the market will behave in a certain way.\n3. **Overfitting**: Fitting the model too closely to the training data, making it perform well on the training set but poorly on new, unseen data.\n\n**Examples of look-ahead bias:**\n\n1. Using future prices to determine entry and exit points.\n2. Using economic indicators that are released after the fact to make trading decisions.\n3. Using a model that is optimized on a specific dataset, but then applying it to a different dataset without re-optimizing.\n\n**How to avoid look-ahead bias:**\n\n1. **Use only available data**: Only use data that is available at the time the trade is executed.\n2. **Use walk-forward optimization**: Split the data into training and testing sets, and use the training set to optimize the model, then test it on the testing set.\n3. **Use out-of-sample testing**: Test the model on data that is not used for training, to ensure that it generalizes well.\n4. **Use robust metrics**: Use metrics that are robust to overfitting, such as Sharpe ratio or Sortino ratio.\n5. **Use cross-validation**: Use techniques like k-fold cross-validation to ensure that the model is not overfitting to a specific subset of the data.\n6. **Use a holdout set**: Set aside a portion of the data as a holdout set, and test the model on this set to ensure that it generalizes well.\n7. **Use a"
+      },
+      "judges": {
+        "original_vs_qlora": {
+          "final": {
+            "winner": "qlora",
+            "score_original": 6.0,
+            "score_qlora": 8.0,
+            "rationale": "The original answer incorrectly conflates look-ahead bias with data snooping and overfitting, which are related but distinct issues, reducing factual correctness. The qlora answer correctly defines look-ahead bias, provides clearer examples, and offers more comprehensive and practical avoidance techniques, enhancing finance depth and usefulness."
+          },
+          "raw": "{\n  \"winner\": \"qlora\",\n  \"score_original\": 6,\n  \"score_qlora\": 8,\n  \"rationale\": \"The original answer incorrectly conflates look-ahead bias with data snooping and overfitting, which are related but distinct issues, reducing factual correctness. The qlora answer correctly defines look-ahead bias, provides clearer examples, and offers more comprehensive and practical avoidance techniques, enhancing finance depth and usefulness.\"\n}",
+          "parsed_debug": {
+            "winner": "qlora",
+            "score_original": 6,
+            "score_qlora": 8,
+            "rationale": "The original answer incorrectly conflates look-ahead bias with data snooping and overfitting, which are related but distinct issues, reducing factual correctness. The qlora answer correctly defines look-ahead bias, provides clearer examples, and offers more comprehensive and practical avoidance techniques, enhancing finance depth and usefulness."
+          }
+        },
+        "original_vs_dpo": {
+          "final": {
+            "winner": "dpo",
+            "score_original": 6.0,
+            "score_dpo": 8.0,
+            "rationale": "The original answer correctly defines look-ahead bias and its consequences but is incomplete and somewhat inaccurate by conflating look-ahead bias with overfitting and data snooping. The dpo answer provides a clearer, more detailed explanation with practical examples and multiple concrete methods to avoid look-ahead bias, enhancing its practical usefulness and depth."
+          },
+          "raw": "{\n  \"winner\": \"dpo\",\n  \"score_original\": 6,\n  \"score_dpo\": 8,\n  \"rationale\": \"The original answer correctly defines look-ahead bias and its consequences but is incomplete and somewhat inaccurate by conflating look-ahead bias with overfitting and data snooping. The dpo answer provides a clearer, more detailed explanation with practical examples and multiple concrete methods to avoid look-ahead bias, enhancing its practical usefulness and depth.\"\n}",
+          "parsed_debug": {
+            "winner": "dpo",
+            "score_original": 6,
+            "score_dpo": 8,
+            "rationale": "The original answer correctly defines look-ahead bias and its consequences but is incomplete and somewhat inaccurate by conflating look-ahead bias with overfitting and data snooping. The dpo answer provides a clearer, more detailed explanation with practical examples and multiple concrete methods to avoid look-ahead bias, enhancing its practical usefulness and depth."
+          }
+        },
+        "qlora_vs_dpo": {
+          "final": {
+            "winner": "qlora",
+            "score_qlora": 8.0,
+            "score_dpo": 6.0,
+            "rationale": "Qlora provides a clearer and more focused explanation of look-ahead bias with relevant examples and practical avoidance techniques, while dpo includes some inaccuracies (e.g., equating look-ahead bias with data snooping and overfitting) and less precise avoidance methods."
+          },
+          "raw": "{\n  \"winner\": \"qlora\",\n  \"score_qlora\": 8,\n  \"score_dpo\": 6,\n  \"rationale\": \"Qlora provides a clearer and more focused explanation of look-ahead bias with relevant examples and practical avoidance techniques, while dpo includes some inaccuracies (e.g., equating look-ahead bias with data snooping and overfitting) and less precise avoidance methods.\"\n}",
+          "parsed_debug": {
+            "winner": "qlora",
+            "score_qlora": 8,
+            "score_dpo": 6,
+            "rationale": "Qlora provides a clearer and more focused explanation of look-ahead bias with relevant examples and practical avoidance techniques, while dpo includes some inaccuracies (e.g., equating look-ahead bias with data snooping and overfitting) and less precise avoidance methods."
+          }
+        }
+      }
+    },
+    {
+      "question": "What is survivorship bias and why does it matter in equity datasets?",
+      "answers": {
+        "original": "**Survivorship Bias:**\n\nSurvivorship bias is a statistical phenomenon where the analysis of a dataset is skewed by the inclusion of only those elements that have survived to the present, while excluding those that have failed or dropped out. This bias can lead to inaccurate conclusions and a distorted view of the data.\n\n**Equity Datasets:**\n\nIn the context of equity datasets, survivorship bias occurs when only the surviving companies (those that have not gone bankrupt or been acquired) are included in the analysis, while the companies that have failed or been acquired are excluded. This can lead to a biased view of the performance of the surviving companies, as the dataset does not account for the companies that did not survive.\n\n**Why it Matters:**\n\nSurvivorship bias matters in equity datasets because it can:\n\n1. **Overstate returns**: By excluding companies that have failed, the dataset may overstate the returns of the surviving companies, as the failed companies would have contributed to the overall returns.\n2. **Mislead investors**: Survivorship bias can lead investors to believe that certain investment strategies or companies are more successful than they actually are.\n3. **Distort risk assessments**: By excluding companies that have failed, the dataset may not accurately reflect the risks associated with investing in the surviving companies.\n\n**Example:**\n\nSuppose you analyze a dataset of mutual funds and find that the average annual return is 10%. However, you only include funds that are still active and exclude those that have been closed or merged. In reality, the average annual return may be lower, as the closed or merged funds would have contributed to the overall returns.\n\n**Mitigating Survivorship Bias:**\n\nTo mitigate survivorship bias, it's essential to use datasets that include both surviving and failed companies. This can be achieved by:\n\n1. **Using comprehensive datasets**: Include all companies, regardless of their current status.\n2. **Using",
+        "qlora": "Survivorship bias is a statistical phenomenon where the analysis of a dataset excludes observations that are no longer present, often because they have failed or been removed. In equity datasets, this typically occurs when a stock is delisted or merged, and the dataset only includes the surviving companies.\n\nFor example, consider a study of stock performance that includes only companies listed at the end of the sample period. If a company was listed at the beginning of the sample but delisted later, its performance data will be missing, creating a biased sample. The study may conclude that companies with high performance are more likely to survive, when in fact the high performance is a result of the company's survival.\n\nSurvivorship bias can lead to:\n\n1. **Overestimation of performance**: Companies that fail or are delisted may have had poor performance, which is excluded from the analysis.\n2. **Selection bias**: The sample may not be representative of the population, as only the \"winners\" are included.\n3. **Incorrect conclusions**: The analysis may attribute the success of surviving companies to their characteristics, when in fact the success is a result of their survival.\n\nTo mitigate survivorship bias, researchers often use:\n\n1. **Longitudinal data**: Include all companies in the sample, even if they are delisted or merged.\n2. **Matching**: Match delisted companies with similar characteristics to those that survived.\n3. **Propensity score matching**: Match companies based on their probability of survival.\n4. **Bootstrapping**: Re-sample the dataset with replacement to account for missing observations.\n\nBy acknowledging and addressing survivorship bias, researchers can ensure that their conclusions are based on a more comprehensive and representative sample.",
+        "dpo": "Survivorship bias occurs when a dataset only includes entities that have survived to the present, excluding those that have failed or been removed. In equity datasets, this typically means that only listed companies that remain listed are included, while those that have delisted (e.g., due to bankruptcy, merger, or regulatory issues) are excluded.\n\nThis bias matters for several reasons:\n\n1. **Incomplete picture**: Survivorship bias can lead to an incomplete understanding of the market, as the dataset may not accurately represent the full population of listed companies.\n2. **Selection bias**: The remaining companies may not be representative of the original population, as they may have characteristics that contributed to their survival (e.g., stronger financials, better management).\n3. **Inaccurate performance metrics**: When calculating performance metrics (e.g., returns, Sharpe ratio), the exclusion of delisted companies can lead to biased results, as the sample may not accurately reflect the true population.\n4. **Misleading conclusions**: Survivorship bias can lead to incorrect conclusions about market trends, company performance, or investment strategies.\n\nTo mitigate survivorship bias, researchers and investors often use:\n\n1. **Longitudinal datasets**: Include all listed companies, even if they have delisted.\n2. **Weighted sampling**: Use weights to adjust for the exclusion of delisted companies.\n3. **Matching**: Match delisted companies with similar characteristics to the remaining companies.\n4. **Robustness checks**: Verify results using alternative datasets or methods to ensure the findings are not driven by survivorship bias.\n\nBy acknowledging and addressing survivorship bias, researchers and investors can gain a more accurate understanding of the equity market and make more informed decisions."
+      },
+      "judges": {
+        "original_vs_qlora": {
+          "final": {
+            "winner": "original",
+            "score_original": 9.0,
+            "score_qlora": 7.0,
+            "rationale": "The original answer provides a clearer, more practical explanation with a relevant example and actionable mitigation steps, though it is incomplete at the end. The qlora answer is factually correct and includes advanced mitigation techniques but is less clear and slightly less practical in its explanation."
+          },
+          "raw": "{\n  \"winner\": \"original\",\n  \"score_original\": 9,\n  \"score_qlora\": 7,\n  \"rationale\": \"The original answer provides a clearer, more practical explanation with a relevant example and actionable mitigation steps, though it is incomplete at the end. The qlora answer is factually correct and includes advanced mitigation techniques but is less clear and slightly less practical in its explanation.\"\n}",
+          "parsed_debug": {
+            "winner": "original",
+            "score_original": 9,
+            "score_qlora": 7,
+            "rationale": "The original answer provides a clearer, more practical explanation with a relevant example and actionable mitigation steps, though it is incomplete at the end. The qlora answer is factually correct and includes advanced mitigation techniques but is less clear and slightly less practical in its explanation."
+          }
+        },
+        "original_vs_dpo": {
+          "final": {
+            "winner": "tie",
+            "score_original": 9.0,
+            "score_dpo": 9.0,
+            "rationale": "Both answers accurately define survivorship bias and explain its importance in equity datasets with practical implications. The original answer provides a clear example and mitigation steps but is cut off, while the dpo answer offers more detailed mitigation techniques and a thorough explanation of the bias's impact. Both are factually correct, deep, practical, and clear."
+          },
+          "raw": "{\n  \"winner\": \"tie\",\n  \"score_original\": 9,\n  \"score_dpo\": 9,\n  \"rationale\": \"Both answers accurately define survivorship bias and explain its importance in equity datasets with practical implications. The original answer provides a clear example and mitigation steps but is cut off, while the dpo answer offers more detailed mitigation techniques and a thorough explanation of the bias's impact. Both are factually correct, deep, practical, and clear.\"\n}",
+          "parsed_debug": {
+            "winner": "tie",
+            "score_original": 9,
+            "score_dpo": 9,
+            "rationale": "Both answers accurately define survivorship bias and explain its importance in equity datasets with practical implications. The original answer provides a clear example and mitigation steps but is cut off, while the dpo answer offers more detailed mitigation techniques and a thorough explanation of the bias's impact. Both are factually correct, deep, practical, and clear."
+          }
+        },
+        "qlora_vs_dpo": {
+          "final": {
+            "winner": "tie",
+            "score_qlora": 9.0,
+            "score_dpo": 9.0,
+            "rationale": "Both answers accurately define survivorship bias and explain its importance in equity datasets with clear examples and consequences. Qlora provides more detailed mitigation techniques including propensity score matching and bootstrapping, while dpo includes weighted sampling and robustness checks, enhancing practical usefulness. Both are factually correct, sufficiently deep, and clearly presented."
+          },
+          "raw": "{\n  \"winner\": \"tie\",\n  \"score_qlora\": 9,\n  \"score_dpo\": 9,\n  \"rationale\": \"Both answers accurately define survivorship bias and explain its importance in equity datasets with clear examples and consequences. Qlora provides more detailed mitigation techniques including propensity score matching and bootstrapping, while dpo includes weighted sampling and robustness checks, enhancing practical usefulness. Both are factually correct, sufficiently deep, and clearly presented.\"\n}",
+          "parsed_debug": {
+            "winner": "tie",
+            "score_qlora": 9,
+            "score_dpo": 9,
+            "rationale": "Both answers accurately define survivorship bias and explain its importance in equity datasets with clear examples and consequences. Qlora provides more detailed mitigation techniques including propensity score matching and bootstrapping, while dpo includes weighted sampling and robustness checks, enhancing practical usefulness. Both are factually correct, sufficiently deep, and clearly presented."
+          }
+        }
+      }
+    },
+    {
+      "question": "Compare VaR and Expected Shortfall conceptually. When is ES preferred?",
+      "answers": {
+        "original": "**Value-at-Risk (VaR) and Expected Shortfall (ES) Comparison**\n\nBoth Value-at-Risk (VaR) and Expected Shortfall (ES) are risk management metrics used to quantify potential losses in a portfolio. However, they differ in their approach and application:\n\n**Value-at-Risk (VaR)**\n\n*   Defines the maximum potential loss (or gain) with a given probability (e.g., 95%) over a specific time horizon (e.g., one day).\n*   Focuses on the worst-case scenario, providing a single number that represents the maximum potential loss.\n*   Assumes that losses are normally distributed and that the probability of a loss exceeding the VaR is small.\n\n**Expected Shortfall (ES)**\n\n*   Measures the average potential loss (or gain) beyond the VaR, providing a more comprehensive view of potential losses.\n*   Takes into account the entire distribution of potential losses, not just the worst-case scenario.\n*   Provides a more accurate representation of potential losses, especially in cases where the distribution of losses is skewed or fat-tailed.\n\n**When is ES preferred?**\n\nES is preferred in situations where:\n\n*   The distribution of potential losses is skewed or fat-tailed, such as in cases of extreme market events or natural disasters.\n*   The VaR is too conservative or too optimistic, leading to inaccurate risk assessments.\n*   A more comprehensive view of potential losses is required, beyond just the worst-case scenario.\n*   Regulatory requirements demand a more robust risk management framework, such as in the case of banks and financial institutions.\n\nIn summary, while VaR provides a quick and easy-to-understand measure of potential losses, ES offers a more nuanced and accurate representation of potential losses, making it a preferred choice in situations where a more comprehensive risk management framework is required.",
+        "qlora": "Conceptual comparison:\n\n1. **VaR (Value-at-Risk)**: VaR is a single-number risk measure that estimates the maximum potential loss (in dollars or percentage) at a given confidence level (e.g., 95%) over a specified time horizon (e.g., one day). It is often used as a benchmark to evaluate the performance of risk management strategies.\n\n2. **Expected Shortfall (ES)**: ES is a more comprehensive risk measure that calculates the average loss (in dollars or percentage) beyond the VaR threshold. It is also known as the Conditional Value-at-Risk (CVaR). ES provides a more nuanced view of risk by incorporating the severity of potential losses.\n\nPreference for ES:\n\n1. **More informative**: ES provides a better understanding of the potential losses beyond the VaR threshold, which is essential for risk management and capital allocation decisions.\n2. **Better for tail risk**: ES is more sensitive to extreme events, making it a better choice for capturing tail risk and systemic risk.\n3. **More robust**: ES is less sensitive to outliers and extreme values, which can lead to more accurate risk assessments.\n4. **Regulatory adoption**: ES is increasingly adopted by regulatory bodies, such as the Basel Committee on Banking Supervision, as a more robust risk measure.\n\nWhen to prefer ES:\n\n1. **Risk management**: ES is preferred for risk management decisions, such as setting capital requirements, allocating risk capital, and designing hedging strategies.\n2. **Systemic risk**: ES is more effective in capturing systemic risk and tail risk, making it a better choice for financial institutions and regulatory bodies.\n3. **Extreme events**: ES is more sensitive to extreme events, such as market crashes or liquidity crises, which can lead to more accurate risk assessments.\n4. **Comprehensive risk assessment**: ES provides a more comprehensive view of risk by incorporating the severity of potential losses",
+        "dpo": "**Value-at-Risk (VaR)**: VaR is a widely used risk measure that estimates the maximum potential loss (or loss in value) of a portfolio over a specific time horizon with a given confidence level (e.g., 95%). It is typically calculated as the 95th percentile of the distribution of potential losses.\n\n**Expected Shortfall (ES)**: ES, also known as Conditional Value-at-Risk (CVaR), is a risk measure that estimates the average potential loss (or loss in value) of a portfolio beyond the VaR threshold. It is calculated as the expected value of losses above the VaR level.\n\n**Key differences**:\n\n1. **Focus**: VaR focuses on the maximum potential loss, while ES focuses on the average potential loss beyond the VaR threshold.\n2. **Threshold**: VaR is typically calculated at a specific confidence level (e.g., 95%), while ES is calculated at the VaR threshold.\n3. **Risk assessment**: VaR provides a single number, while ES provides a distribution of potential losses, allowing for a more nuanced understanding of risk.\n\n**When is ES preferred?**:\n\n1. **Regulatory requirements**: ES is often required by regulatory bodies, such as the Basel Committee, as a more comprehensive risk measure.\n2. **Risk management**: ES provides a more detailed understanding of potential losses, making it a better choice for risk management and stress testing.\n3. **Tail risk**: ES is more sensitive to extreme events, making it a better choice for tail risk management.\n4. **Multi-asset portfolios**: ES is more suitable for multi-asset portfolios, as it can capture the interdependencies between assets.\n\nIn summary, while VaR is a widely used risk measure, ES provides a more comprehensive understanding of potential losses, making it a preferred choice for regulatory requirements, risk management, tail risk management, and multi-"
+      },
+      "judges": {
+        "original_vs_qlora": {
+          "final": {
+            "winner": "qlora",
+            "score_original": 7.0,
+            "score_qlora": 9.0,
+            "rationale": "Both answers correctly explain VaR and ES conceptually, but qlora provides clearer definitions, explicitly mentions ES as CVaR, and better details when ES is preferred, including regulatory context and practical applications. The original answer is accurate but less precise and somewhat vague on assumptions and practical implications."
+          },
+          "raw": "{\n  \"winner\": \"qlora\",\n  \"score_original\": 7,\n  \"score_qlora\": 9,\n  \"rationale\": \"Both answers correctly explain VaR and ES conceptually, but qlora provides clearer definitions, explicitly mentions ES as CVaR, and better details when ES is preferred, including regulatory context and practical applications. The original answer is accurate but less precise and somewhat vague on assumptions and practical implications.\"\n}",
+          "parsed_debug": {
+            "winner": "qlora",
+            "score_original": 7,
+            "score_qlora": 9,
+            "rationale": "Both answers correctly explain VaR and ES conceptually, but qlora provides clearer definitions, explicitly mentions ES as CVaR, and better details when ES is preferred, including regulatory context and practical applications. The original answer is accurate but less precise and somewhat vague on assumptions and practical implications."
+          }
+        },
+        "original_vs_dpo": {
+          "final": {
+            "winner": "dpo",
+            "score_original": 7.0,
+            "score_dpo": 9.0,
+            "rationale": "The dpo answer is more precise and technically accurate, correctly defining VaR and ES, including the concept of ES as CVaR, and highlighting regulatory context and tail risk sensitivity. The original answer is generally correct but contains inaccuracies (e.g., VaR assumes normality, which is not a requirement) and is less clear on key conceptual distinctions."
+          },
+          "raw": "{\n  \"winner\": \"dpo\",\n  \"score_original\": 7,\n  \"score_dpo\": 9,\n  \"rationale\": \"The dpo answer is more precise and technically accurate, correctly defining VaR and ES, including the concept of ES as CVaR, and highlighting regulatory context and tail risk sensitivity. The original answer is generally correct but contains inaccuracies (e.g., VaR assumes normality, which is not a requirement) and is less clear on key conceptual distinctions.\"\n}",
+          "parsed_debug": {
+            "winner": "dpo",
+            "score_original": 7,
+            "score_dpo": 9,
+            "rationale": "The dpo answer is more precise and technically accurate, correctly defining VaR and ES, including the concept of ES as CVaR, and highlighting regulatory context and tail risk sensitivity. The original answer is generally correct but contains inaccuracies (e.g., VaR assumes normality, which is not a requirement) and is less clear on key conceptual distinctions."
+          }
+        },
+        "qlora_vs_dpo": {
+          "final": {
+            "winner": "qlora",
+            "score_qlora": 9.0,
+            "score_dpo": 7.0,
+            "rationale": "Qlora's answer is more detailed, clearly explains the conceptual differences, and provides a thorough and practical explanation of when ES is preferred, including regulatory context and risk management applications. Dpo's answer is accurate but less comprehensive and slightly less clear, with a minor inaccuracy in describing ES as providing a distribution rather than an average loss beyond VaR."
+          },
+          "raw": "{\n  \"winner\": \"qlora\",\n  \"score_qlora\": 9,\n  \"score_dpo\": 7,\n  \"rationale\": \"Qlora's answer is more detailed, clearly explains the conceptual differences, and provides a thorough and practical explanation of when ES is preferred, including regulatory context and risk management applications. Dpo's answer is accurate but less comprehensive and slightly less clear, with a minor inaccuracy in describing ES as providing a distribution rather than an average loss beyond VaR.\"\n}",
+          "parsed_debug": {
+            "winner": "qlora",
+            "score_qlora": 9,
+            "score_dpo": 7,
+            "rationale": "Qlora's answer is more detailed, clearly explains the conceptual differences, and provides a thorough and practical explanation of when ES is preferred, including regulatory context and risk management applications. Dpo's answer is accurate but less comprehensive and slightly less clear, with a minor inaccuracy in describing ES as providing a distribution rather than an average loss beyond VaR."
+          }
+        }
+      }
+    },
+    {
+      "question": "Why might a model have high AUC but poor calibration?",
+      "answers": {
+        "original": "A model with high AUC (Area Under the Curve) but poor calibration is a common issue in machine learning and predictive modeling. Here are some reasons why this might occur:\n\n1. **Overfitting**: The model may be too complex and is fitting the noise in the training data rather than the underlying patterns. As a result, it performs well on the training data but fails to generalize to new, unseen data.\n2. **Imbalanced data**: If the classes in the data are imbalanced (e.g., one class has a much larger number of instances than the other), the model may be biased towards the majority class, leading to poor calibration.\n3. **Non-linear relationships**: The relationship between the features and the target variable may be non-linear, and the model may not be able to capture these relationships accurately.\n4. **High variance**: The model may be highly variable, meaning that small changes in the data or the model's parameters can result in large changes in the predictions.\n5. **Lack of regularization**: The model may not be regularized enough, leading to overfitting and poor calibration.\n6. **Insufficient data**: The model may not have enough data to learn from, leading to poor calibration.\n7. **Model selection**: The model may not be the best choice for the problem, or the hyperparameters may not be tuned correctly.\n\nTo address these issues, you can try the following:\n\n1. **Regularization**: Add regularization techniques, such as L1 or L2 regularization, dropout, or early stopping, to prevent overfitting.\n2. **Data preprocessing**: Preprocess the data to handle imbalanced classes, missing values, or outliers.\n3. **Feature engineering**: Create new features that capture non-linear relationships between the features and the target variable.\n4. **Model selection**: Try different models or ensemble methods to find the best one for the problem.",
+        "qlora": "High AUC (Area Under the Curve) but poor calibration in a model can occur due to:\n\n1. **Threshold effect**: A model with high AUC may still be poorly calibrated if it's not optimized for a specific decision threshold. AUC measures the model's ability to rank samples, but real-world decisions often require a specific probability or threshold.\n2. **Overfitting**: A model that's overly complex or has too many features may have high AUC on the training data but fail to generalize well to new data, leading to poor calibration.\n3. **Class imbalance**: When one class is significantly more common than the other, a model may prioritize that class, leading to poor calibration and high AUC.\n4. **Non-linear relationships**: A model that's not designed to handle non-linear relationships between features and the target variable may struggle with calibration, even if it has high AUC.\n5. **Data distribution**: A model may perform well on a specific data distribution (e.g., uniform, normal) but fail to generalize to other distributions, leading to poor calibration.\n6. **Evaluation metrics**: Using AUC as the sole evaluation metric can mask issues with calibration. Consider using additional metrics like Brier score, calibration plots, or decision threshold analysis.\n7. **Model type**: Certain model types (e.g., decision trees, random forests) are more prone to calibration issues than others (e.g., logistic regression, neural networks).\n8. **Hyperparameter tuning**: Failing to properly tune hyperparameters can lead to poor calibration, even if the model has high AUC.\n\nTo address these issues, consider:\n\n* Using a calibration metric (e.g., Brier score, expected calibration error) in addition to AUC.\n* Implementing techniques like Platt scaling, isotonic regression, or temperature scaling to improve calibration.\n* Regularly monitoring and adjusting the decision threshold.\n* Using techniques",
+        "dpo": "High AUC (Area Under the Receiver Operating Characteristic Curve) indicates good classification performance, but poor calibration means the model's confidence is not aligned with its actual accuracy. This discrepancy can arise from:\n\n1. **Overconfidence**: The model is overly confident in its predictions, leading to a high AUC but underestimating the true probabilities of the classes.\n2. **Thresholding**: AUC is sensitive to the choice of threshold, which may not reflect the actual decision boundary. A model with a high AUC might still be poorly calibrated if the threshold is not optimal.\n3. **Class imbalance**: When one class is significantly more frequent than the others, the model may focus on that class, leading to high AUC but poor calibration for the minority classes.\n4. **Non-linear relationships**: Complex relationships between features and the target variable can lead to poor calibration, even with a high AUC.\n5. **Data distribution**: A model trained on a specific data distribution may not generalize well to new data, resulting in poor calibration.\n6. **Model complexity**: Overfitting or underfitting can lead to poor calibration, even if the AUC is high.\n7. **Evaluation metrics**: Using AUC as the sole evaluation metric can mask poor calibration. Consider using other metrics, such as Brier score, log loss, or expected calibration error.\n\nTo address poor calibration, consider:\n\n1. **Post-processing**: Apply a threshold or adjust the confidence levels to match the actual accuracy.\n2. **Ensemble methods**: Combine multiple models to reduce overconfidence and improve calibration.\n3. **Regularization**: Add regularization terms to the loss function to prevent overfitting.\n4. **Data augmentation**: Increase the size and diversity of the training data to improve generalization.\n5. **Evaluation metrics**: Use a combination of metrics, including AUC, Brier score, and expected calibration error, to"
+      },
+      "judges": {
+        "original_vs_qlora": {
+          "final": {
+            "winner": "qlora",
+            "score_original": 6.0,
+            "score_qlora": 8.0,
+            "rationale": "The qlora answer provides a more precise and finance-relevant explanation, including the important distinction between ranking performance (AUC) and probability calibration, and suggests specific calibration techniques like Platt scaling and isotonic regression. The original answer is broader but less focused on calibration-specific issues and lacks mention of calibration metrics and post-processing methods, reducing its practical usefulness."
+          },
+          "raw": "{\n  \"winner\": \"qlora\",\n  \"score_original\": 6,\n  \"score_qlora\": 8,\n  \"rationale\": \"The qlora answer provides a more precise and finance-relevant explanation, including the important distinction between ranking performance (AUC) and probability calibration, and suggests specific calibration techniques like Platt scaling and isotonic regression. The original answer is broader but less focused on calibration-specific issues and lacks mention of calibration metrics and post-processing methods, reducing its practical usefulness.\"\n}",
+          "parsed_debug": {
+            "winner": "qlora",
+            "score_original": 6,
+            "score_qlora": 8,
+            "rationale": "The qlora answer provides a more precise and finance-relevant explanation, including the important distinction between ranking performance (AUC) and probability calibration, and suggests specific calibration techniques like Platt scaling and isotonic regression. The original answer is broader but less focused on calibration-specific issues and lacks mention of calibration metrics and post-processing methods, reducing its practical usefulness."
+          }
+        },
+        "original_vs_dpo": {
+          "final": {
+            "winner": "dpo",
+            "score_original": 6.0,
+            "score_dpo": 8.0,
+            "rationale": "The dpo answer provides a more precise explanation of the difference between AUC and calibration, correctly noting that AUC is threshold-independent and that calibration relates to probability estimates. It also suggests relevant evaluation metrics and practical remedies, improving depth and usefulness. The original answer contains some inaccuracies (e.g., AUC sensitivity to threshold) and less clarity on calibration specifics."
+          },
+          "raw": "{\n  \"winner\": \"dpo\",\n  \"score_original\": 6,\n  \"score_dpo\": 8,\n  \"rationale\": \"The dpo answer provides a more precise explanation of the difference between AUC and calibration, correctly noting that AUC is threshold-independent and that calibration relates to probability estimates. It also suggests relevant evaluation metrics and practical remedies, improving depth and usefulness. The original answer contains some inaccuracies (e.g., AUC sensitivity to threshold) and less clarity on calibration specifics.\"\n}",
+          "parsed_debug": {
+            "winner": "dpo",
+            "score_original": 6,
+            "score_dpo": 8,
+            "rationale": "The dpo answer provides a more precise explanation of the difference between AUC and calibration, correctly noting that AUC is threshold-independent and that calibration relates to probability estimates. It also suggests relevant evaluation metrics and practical remedies, improving depth and usefulness. The original answer contains some inaccuracies (e.g., AUC sensitivity to threshold) and less clarity on calibration specifics."
+          }
+        },
+        "qlora_vs_dpo": {
+          "final": {
+            "winner": "qlora",
+            "score_qlora": 8.0,
+            "score_dpo": 6.0,
+            "rationale": "Qlora provides a more comprehensive and detailed explanation of why a model might have high AUC but poor calibration, including specific causes and practical remedies. Dpo's answer is less precise, contains some inaccuracies (e.g., AUC is threshold-independent), and offers less depth on calibration techniques."
+          },
+          "raw": "{\n  \"winner\": \"qlora\",\n  \"score_qlora\": 8,\n  \"score_dpo\": 6,\n  \"rationale\": \"Qlora provides a more comprehensive and detailed explanation of why a model might have high AUC but poor calibration, including specific causes and practical remedies. Dpo's answer is less precise, contains some inaccuracies (e.g., AUC is threshold-independent), and offers less depth on calibration techniques.\"\n}",
+          "parsed_debug": {
+            "winner": "qlora",
+            "score_qlora": 8,
+            "score_dpo": 6,
+            "rationale": "Qlora provides a more comprehensive and detailed explanation of why a model might have high AUC but poor calibration, including specific causes and practical remedies. Dpo's answer is less precise, contains some inaccuracies (e.g., AUC is threshold-independent), and offers less depth on calibration techniques."
+          }
+        }
+      }
+    },
+    {
+      "question": "Why can a high Sharpe ratio be misleading in small samples?",
+      "answers": {
+        "original": "A high Sharpe ratio can be misleading in small samples because it is sensitive to the volatility of the sample period. In small samples, the ratio of excess returns to volatility (Sharpe ratio) can be skewed by a single event or a short-term market fluctuation.\n\nThere are two main reasons for this:\n\n1. **Noise**: Small samples are more susceptible to noise, which can lead to inaccurate estimates of volatility and returns. This noise can cause the Sharpe ratio to be artificially high or low, leading to incorrect conclusions.\n2. **Sampling error**: The Sharpe ratio is a sample statistic, and like all sample statistics, it is subject to sampling error. In small samples, the sampling error can be large, leading to a high Sharpe ratio that may not reflect the true underlying performance of the investment.\n\nTo mitigate these issues, it's essential to:\n\n1. **Use larger samples**: If possible, use longer time periods or more data points to reduce the impact of noise and sampling error.\n2. **Consider the confidence interval**: Calculate the confidence interval for the Sharpe ratio to understand the uncertainty surrounding the estimate.\n3. **Compare to benchmarks**: Compare the Sharpe ratio to that of a benchmark or a peer group to put it into context.\n4. **Use other metrics**: Consider using other metrics, such as the Sortino ratio or the Calmar ratio, which are less sensitive to volatility and may provide a more accurate picture of investment performance.\n\nBy being aware of these limitations, investors and analysts can make more informed decisions when interpreting the Sharpe ratio in small samples.",
+        "qlora": "A high Sharpe ratio in small samples can be misleading due to the following reasons:\n\n1. **Noise and sampling error**: Small samples are more susceptible to noise and sampling error, which can lead to overestimation of returns and underestimation of volatility. This can result in an artificially high Sharpe ratio.\n2. **Volatility clustering**: Small samples may not capture the full range of volatility, leading to an underestimation of volatility and an overestimation of the Sharpe ratio.\n3. **Non-stationarity**: Small samples may not be representative of the underlying process, and the Sharpe ratio may not be a reliable measure of risk-adjusted performance.\n4. **Overfitting**: Small samples can lead to overfitting, where the model is too closely tied to the specific data and does not generalize well to new data.\n\nTo mitigate these issues, it's essential to:\n\n1. **Increase the sample size**: Larger samples provide a more robust estimate of the Sharpe ratio.\n2. **Use robust estimation methods**: Techniques like the median Sharpe ratio or the rolling Sharpe ratio can be more robust to noise and sampling error.\n3. **Consider alternative metrics**: Other metrics, such as the Sortino ratio or the Omega ratio, may be more suitable for small samples.\n4. **Use out-of-sample validation**: Validate the Sharpe ratio on a separate, unseen dataset to ensure it generalizes well.",
+        "dpo": "A high Sharpe ratio in small samples can be misleading due to the following reasons:\n\n1. **Volatility clustering**: Small samples tend to capture periods of high volatility, which can inflate the Sharpe ratio. This can lead to overestimation of the strategy's risk-adjusted returns.\n2. **Sampling error**: Small samples are more susceptible to sampling error, which can result in an overestimation of the true Sharpe ratio. As the sample size increases, the sampling error decreases, and the Sharpe ratio becomes more reliable.\n3. **Data mining bias**: Small samples can lead to data mining bias, where the strategy's performance is optimized to the specific data set used. This can result in an overestimation of the strategy's Sharpe ratio.\n4. **Overfitting**: Small samples can lead to overfitting, where the strategy is too closely tailored to the specific data set used, resulting in poor performance on new, unseen data.\n5. **Survivorship bias**: Small samples may not capture the full range of possible outcomes, including those that led to the strategy's elimination (e.g., due to poor performance or liquidity issues).\n\nTo mitigate these issues, it's essential to:\n\n* Use larger sample sizes to reduce sampling error and increase the reliability of the Sharpe ratio.\n* Implement robustness checks, such as bootstrapping or Monte Carlo simulations, to assess the strategy's performance under different scenarios.\n* Consider using alternative risk-adjusted metrics, such as the Sortino ratio or the Omega ratio, which are less sensitive to volatility clustering.\n* Ensure that the sample is representative of the full range of possible outcomes, including those that led to the strategy's elimination."
+      },
+      "judges": {
+        "original_vs_qlora": {
+          "final": {
+            "winner": "qlora",
+            "score_original": 8.0,
+            "score_qlora": 9.0,
+            "rationale": "Both answers correctly identify noise and sampling error as key issues with high Sharpe ratios in small samples, but qlora provides additional depth by mentioning volatility clustering, non-stationarity, and overfitting, enhancing practical usefulness. The mitigation strategies in qlora are also more nuanced, including robust estimation methods and out-of-sample validation, which adds valuable finance depth."
+          },
+          "raw": "{\n  \"winner\": \"qlora\",\n  \"score_original\": 8,\n  \"score_qlora\": 9,\n  \"rationale\": \"Both answers correctly identify noise and sampling error as key issues with high Sharpe ratios in small samples, but qlora provides additional depth by mentioning volatility clustering, non-stationarity, and overfitting, enhancing practical usefulness. The mitigation strategies in qlora are also more nuanced, including robust estimation methods and out-of-sample validation, which adds valuable finance depth.\"\n}",
+          "parsed_debug": {
+            "winner": "qlora",
+            "score_original": 8,
+            "score_qlora": 9,
+            "rationale": "Both answers correctly identify noise and sampling error as key issues with high Sharpe ratios in small samples, but qlora provides additional depth by mentioning volatility clustering, non-stationarity, and overfitting, enhancing practical usefulness. The mitigation strategies in qlora are also more nuanced, including robust estimation methods and out-of-sample validation, which adds valuable finance depth."
+          }
+        },
+        "original_vs_dpo": {
+          "final": {
+            "winner": "original",
+            "score_original": 9.0,
+            "score_dpo": 7.0,
+            "rationale": "The original answer is factually accurate, clearly explains the key statistical issues (noise and sampling error), and provides practical mitigation steps with clarity. The dpo answer introduces some less relevant or less directly related concepts (e.g., survivorship bias, overfitting) that are not typically primary reasons why a high Sharpe ratio is misleading in small samples, reducing its focus and clarity."
+          },
+          "raw": "{\n  \"winner\": \"original\",\n  \"score_original\": 9,\n  \"score_dpo\": 7,\n  \"rationale\": \"The original answer is factually accurate, clearly explains the key statistical issues (noise and sampling error), and provides practical mitigation steps with clarity. The dpo answer introduces some less relevant or less directly related concepts (e.g., survivorship bias, overfitting) that are not typically primary reasons why a high Sharpe ratio is misleading in small samples, reducing its focus and clarity.\"\n}",
+          "parsed_debug": {
+            "winner": "original",
+            "score_original": 9,
+            "score_dpo": 7,
+            "rationale": "The original answer is factually accurate, clearly explains the key statistical issues (noise and sampling error), and provides practical mitigation steps with clarity. The dpo answer introduces some less relevant or less directly related concepts (e.g., survivorship bias, overfitting) that are not typically primary reasons why a high Sharpe ratio is misleading in small samples, reducing its focus and clarity."
+          }
+        },
+        "qlora_vs_dpo": {
+          "final": {
+            "winner": "qlora",
+            "score_qlora": 9.0,
+            "score_dpo": 7.0,
+            "rationale": "Qlora's answer is more factually accurate and comprehensive, correctly identifying key issues like noise, sampling error, non-stationarity, and overfitting, and providing practical mitigation strategies. Dpo's answer includes some inaccuracies (e.g., volatility clustering inflating Sharpe ratio is misstated) and less clarity, though it adds useful points like survivorship bias and robustness checks."
+          },
+          "raw": "{\n  \"winner\": \"qlora\",\n  \"score_qlora\": 9,\n  \"score_dpo\": 7,\n  \"rationale\": \"Qlora's answer is more factually accurate and comprehensive, correctly identifying key issues like noise, sampling error, non-stationarity, and overfitting, and providing practical mitigation strategies. Dpo's answer includes some inaccuracies (e.g., volatility clustering inflating Sharpe ratio is misstated) and less clarity, though it adds useful points like survivorship bias and robustness checks.\"\n}",
+          "parsed_debug": {
+            "winner": "qlora",
+            "score_qlora": 9,
+            "score_dpo": 7,
+            "rationale": "Qlora's answer is more factually accurate and comprehensive, correctly identifying key issues like noise, sampling error, non-stationarity, and overfitting, and providing practical mitigation strategies. Dpo's answer includes some inaccuracies (e.g., volatility clustering inflating Sharpe ratio is misstated) and less clarity, though it adds useful points like survivorship bias and robustness checks."
+          }
+        }
+      }
+    }
+  ],
+  "summary": {
+    "elapsed_sec": 457.17849802970886,
+    "win_counts": {
+      "original": 2,
+      "qlora": 8,
+      "dpo": 3,
+      "tie": 2
+    },
+    "avg_scores": {
+      "original": 7.3,
+      "qlora": 8.4,
+      "dpo": 7.6
+    },
+    "score_counts": {
+      "original": 10,
+      "qlora": 10,
+      "dpo": 10
+    }
+  }
+}

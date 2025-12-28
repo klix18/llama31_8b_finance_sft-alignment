@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.pyc
+.env
+
+# Model artifacts
+*.bin
+*.safetensors
+adapter_model/
+checkpoints/
+runs/
+
+# OS
+.DS_Store
